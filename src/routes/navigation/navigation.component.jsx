@@ -4,7 +4,7 @@ import { Link, Outlet } from "react-router-dom";
 import Logo from "../../assets/simbolo_konoha.png";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
-import { UserContext } from "../../components/context/user.context";
+import { UserContext } from "../../context/user.context";
 import { CartContext } from "../../context/cart.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
