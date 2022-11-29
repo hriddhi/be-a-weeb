@@ -1,4 +1,6 @@
 import { useContext, useState } from "react";
+import { useDispatch } from "react-redux";
+import { signUpStart } from "../../store/user/user.action";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
@@ -19,6 +21,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
+  const dispatch = useDispatch();
 
   const resetForm = () => {
     setFormFields(defaultFormFields);
@@ -27,7 +30,7 @@ const SignUpForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormFields({ ...formFields, [name]: value })
+    setFormFields({ ...formFields, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -39,20 +42,14 @@ const SignUpForm = () => {
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      
-      
-      await createUserDocFromAuth(user, { displayName });
+      dispatch(signUpStart(email, password, displayName));
       resetForm();
     } catch (error) {
       if (error.code === "auth/email-already-in-use")
-        alert("Email already exists")
+        alert("Email already exists");
       else console.error(error);
     }
-  }
+  };
 
   return (
     <div className="sign-up-container">
